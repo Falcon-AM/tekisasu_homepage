@@ -1,0 +1,66 @@
+/* =========================
+   parts.css (アニメーション関連)
+   ========================= */
+
+/* hover / transition */
+a{ transition: color .25s ease, opacity .25s ease; }
+a:hover{ color:#666; }
+#concept .img img{ transition: transform .25s ease, box-shadow .25s ease; }
+.menu-item{ transition: box-shadow .25s ease, transform .25s ease; }
+#concept .img img:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.12); }
+.menu-item:hover{ transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,.10); }
+
+/* slideshow fade */
+@keyframes slideFade{ 0%{opacity:1;} 30%{opacity:1;} 40%{opacity:0;} 90%{opacity:0;} 100%{opacity:1;} }
+.slideshow{ isolation:isolate; }
+.slide-item{ animation: slideFade 15s infinite; }
+.slide-item:nth-child(1){ animation-delay:0s; }
+.slide-item:nth-child(2){ animation-delay:5s; }
+.slide-item:nth-child(3){ animation-delay:10s; }
+
+/* =========================
+   Scroll Appear Animation
+   ========================= */
+
+/* アニメーションの定義（中央から分散） */
+@keyframes disperse {
+  from {
+    opacity: 0;
+    transform: translate(var(--tx, 0), var(--ty, 0)) scale(.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+/* アニメーションの初期状態（JSが有効な場合のみ非表示にする） */
+.js-anim #concept .img,
+.js-anim #concept .concept-center,
+.js-anim .menu-item {
+  opacity: 0;
+}
+
+/* is-inviewクラスが付いたらアニメーションを開始 */
+#concept .img.is-inview,
+#concept .concept-center.is-inview {
+  animation: disperse 1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+/* 各要素の移動ベクトルを定義（中心からの移動方向と距離） */
+#concept .concept-center     { --tx: 0; --ty: 0; }
+#concept .img-top-left       { --tx: 20vw; --ty: 10vh; }
+#concept .img-mid-right      { --tx: -20vw; --ty: 10vh; }
+#concept .img-bottom-left    { --tx: 20vw; --ty: -10vh; }
+#concept .img-bottom-right   { --tx: -20vw; --ty: -10vh; }
+
+/* メニューアイテムのアニメーション（こちらは元のまま） */
+.menu-item {
+  transform: translateY(24px);
+  will-change: transform, opacity;
+  transition: transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s;
+}
+.menu-item.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
