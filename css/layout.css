@@ -175,19 +175,39 @@
     #concept .img-bottom-right { grid-column: 7 / span 6; grid-row: 2; margin-top: 3vw; }
   }
   
-  /* ▼▼▼【ここからスマホ版の最終修正】▼▼▼ */
-  @media (max-width: 640px) {
-    /* 1. コンセプトの画像をすべて非表示に */
-    #concept .img {
-      display: none;
-    }
-    
-    /* 2. マップを横長に見せるため高さを調整 */
-    #access .map-container {
-      height: 250px; /* PC版の520pxから高さを変更 */
-    }
+ /* ▼▼▼【スマホ版】▼▼▼ */
+ @media (max-width: 640px) {
+  /* 1. コンセプトの画像をすべて非表示に */
+  #concept .img {
+    display: none;
   }
-  /* ▲▲▲【スマホ版の最終修正はここまで】▲▲▲ */
+  
+  /* 2. マップを横長に見せるため高さを調整 */
+  #access .map-container {
+    height: 250px;
+  }
+
+  /* 3. テキストボックスの幅を広げる（改行はPCと同じ設定に戻す） */
+  #concept .concept-center {
+    /* グリッドの端から端まで使う指定 */
+    grid-column: 1 / -1; 
+    width: 100%;
+    /* スマホで文字が小さすぎると感じる場合はここを調整（任意） */
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+/* ▲▲▲【スマホ版】▲▲▲ */
+
+/* PCのみ改行（スマホでは無効化） */
+@media (max-width: 640px) {
+  .pc { display: none; }
+}
+
+/* スマホのみ改行（PCでは無効化） */
+@media (min-width: 641px) {
+  .sp { display: none; }
+}
   
   /* =========================
      Menu
